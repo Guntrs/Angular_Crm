@@ -38,9 +38,15 @@ loginForm: FormGroup;
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      // Aquí irá la lógica de login, por ahora solo muestra los datos
-      console.log(this.loginForm.value);
-    }
+  if (this.loginForm.valid) {
+    // Simula un login exitoso y guarda un "token" en localStorage
+    // En el futuro, aquí deberías recibir el token real del backend
+    const fakeToken = 'jwt-token-ejemplo'; // Simula un JWT recibido del backend
+
+     localStorage.setItem('token', fakeToken);
+
+    // Redirige al dashboard después de login (opcional)
+    window.location.href = '/dashboard';
   }
+}
 }
