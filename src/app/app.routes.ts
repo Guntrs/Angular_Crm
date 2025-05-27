@@ -6,11 +6,28 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login.component';
 import { DashboardComponent } from './features/dashboard.component';
 
-export const routes: Routes = [
-  {path: 'login', component : LoginComponent },
-  {path: 'dashboard', component : DashboardComponent},
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path: '**', redirectTo: '/login'}
+import { MainLayoutComponent } from './core/layout/main-layout/main-layout.component';
 
+
+
+export const routes: Routes = [
+  // Ruta para el login (sin layout/base)
+  { path: 'login', component: LoginComponent },
+
+  // Layout base para todo lo demás
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },         // Redirige '/' a '/dashboard'
+      { path: 'dashboard', component: DashboardComponent },             // Dashboard dentro del layout
+      // Aquí después puedes agregar más rutas para otros módulos:
+      // { path: 'users', component: UsersComponent },
+      // { path: 'customers', component: CustomersComponent },
+    ]
+  },
+
+  // Ruta comodín (cualquier otra ruta redirige a login)
+  { path: '**', redirectTo: '/login' }
 ];
 

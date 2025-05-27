@@ -1,0 +1,23 @@
+.dashboard-cards {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 32px 0;
+}
+
+.dashboard-card {
+  min-width: 220px;
+  flex: 1 1 220px;
+  text-align: center;
+  padding: 16px 0;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
+
+.dashboard-value {
+  display: block;
+  font-size: 2.6rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1976d2;
+}

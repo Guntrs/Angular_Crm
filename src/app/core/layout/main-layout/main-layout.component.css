@@ -1,0 +1,38 @@
+.sidenav-container {
+  height: 100vh;
+  display: flex;
+}
+
+.sidenav {
+  width: 210px;
+}
+
+.main-content {
+  padding: 32px 24px;
+  background: #f7f7fa;
+  min-height: calc(100vh - 64px); /* 64px es la altura del toolbar */
+}
+
+.active-link {
+  background: rgba(25, 118, 210, 0.08);
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .sidenav-container {
+    flex-direction: column;
+  }
+  .sidenav {
+    width: 180px;
+  }
+  .main-content {
+    padding: 16px 6px;
+  }
+  .hide-desktop {
+    display: inline-flex !important;
+  }
+}
+
+.hide-desktop {
+  display: none;
+}
