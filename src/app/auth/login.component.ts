@@ -1,11 +1,46 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
+//  módulos de Angular Material
+import{ MatFormFieldModule} from '@angular/material/form-field';
+import{ MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  imports: [],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  selector: 'app-login',  // Nombre del componente (para usar en HTML)
+  standalone: true,
+    // Aquí van los módulos que tu componente usa (standalone)
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule
+  ],
+  templateUrl: './login.component.html',   // Archivo HTML asociado
+  styleUrl: './login.component.css'  // Archivo CSS asociado
 })
-export class LoginComponent {
 
+export class LoginComponent {
+loginForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    // Inicializa el formulario con dos campos obligatorios
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      // Aquí irá la lógica de login, por ahora solo muestra los datos
+      console.log(this.loginForm.value);
+    }
+  }
 }
