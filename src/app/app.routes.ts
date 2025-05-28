@@ -26,11 +26,17 @@ export const routes: Routes = [
     canActivate: [AuthGuard], // ← Aplica aquí el guard
 
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },         // Redirige '/' a '/dashboard'
-      { path: 'dashboard', component: DashboardComponent },             // Dashboard dentro del layout
-      // Aquí después puedes agregar más rutas para otros módulos:
-      // { path: 'users', component: UsersComponent },
-      // { path: 'customers', component: CustomersComponent },
+
+      // Redirige '/' a '/dashboard'
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+
+      // Dashboard dentro del layout
+      { path: 'dashboard', component: DashboardComponent },
+
+      //  rutas para otros módulos:----------------
+
+
+
     ]
   },
 

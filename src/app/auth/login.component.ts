@@ -10,6 +10,8 @@ import { MatCardModule } from '@angular/material/card';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+//---------------------------------------------------------------------
+
 @Component({
   selector: 'app-login',  // Nombre del componente (para usar en HTML)
   standalone: true,
@@ -26,18 +28,34 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './login.component.css'  // Archivo CSS asociado
 })
 
+//-----------------------------------------------------------------------
+
+
+
 export class LoginComponent {
+
+  //---propiedades:Variables que el HTML puede usar o ver
 loginForm: FormGroup;
+  //---------------------------
+
+//--codigo que se ejecuta al inciar
+//--inyeccion de servicios Acceder a servicios como FormBuilder, HttpClient, Router
+
 
   constructor(private fb: FormBuilder) {
     // Inicializa el formulario con dos campos obligatorios
+
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
+  //metodos Funciones que responden a eventos (clic, submit, etc.)
+
+  //------funcion clic Login
   onSubmit() {
+
   if (this.loginForm.valid) {
     // Simula un login exitoso y guarda un "token" en localStorage
     // En el futuro, aquí deberías recibir el token real del backend
