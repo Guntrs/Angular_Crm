@@ -1,1 +1,25 @@
-<p>persons-list works!</p>
+<div *ngIf="loading">Cargando...</div>
+<div *ngIf="error">{{ error }}</div>
+<table *ngIf="!loading && persons.length">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Clave</th>
+      <th>Nombre</th>
+      <th>Primer Apellido</th>
+      <th>Segundo Apellido</th>
+      <!-- Agrega más columnas según tus datos -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let person of persons">
+      <td>{{ person.personId }}</td>
+      <td>{{ person.personKey }}</td>
+      <td>{{ person.firstName }}</td>
+      <td>{{ person.firstSurname }}</td>
+      <td>{{ person.secondSurname }}</td>
+      <!-- Más campos si tu API los devuelve -->
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="!loading && !persons.length">No hay personas.</div>

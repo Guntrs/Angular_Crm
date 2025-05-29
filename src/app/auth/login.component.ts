@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-//  módulos de Angular Material
-import{ MatFormFieldModule} from '@angular/material/form-field';
-import{ MatInputModule } from '@angular/material/input';
+// Módulos de Angular Material
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// IMPORTA ESTOS DOS PARA EL LOGIN REAL
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { environment } from '../../environments/environment'; // Ajus
 
 //---------------------------------------------------------------------
 
@@ -42,29 +45,38 @@ loginForm: FormGroup;
 //--inyeccion de servicios Acceder a servicios como FormBuilder, HttpClient, Router
 
 
-  constructor(private fb: FormBuilder) {
-    // Inicializa el formulario con dos campos obligatorios
-
-    this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-  }
+  constructor(
+  private fb: FormBuilder,
+  private http: HttpClient,
+  private router: Router
+) {
+  this.loginForm = this.fb.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required]
+  });
+}
 
   //metodos Funciones que responden a eventos (clic, submit, etc.)
 
   //------funcion clic Login
-  onSubmit() {
-
+ onSubmit() {
   if (this.loginForm.valid) {
-    // Simula un login exitoso y guarda un "token" en localStorage
-    // En el futuro, aquí deberías recibir el token real del backend
-    const fakeToken = 'jwt-token-ejemplo'; // Simula un JWT recibido del backend
+    const body = {
+       userName: this.loginForm.value.username, // <-- N mayúscula, igual que en Postman
+       password: this.loginForm.value.password
+    };
 
-     localStorage.setItem('token', fakeToken);
-
-    // Redirige al dashboard después de login (opcional)
-    window.location.href = '/dashboard';
+    // Llama al endpoint real (ajusta la ruta si es diferente)
+    this.http.post<any>(`${environment.apiUrl}/auth/login`, body).subscribe({
+      next: (response) => {
+        // GUARDA EL TOKEN REAL que devuelve el backend
+        localStorage.setItem('token', response.token); // AJUSTA si el campo es "token" o "accessToken"
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        alert('Usuario o contraseña inválido');
+      }
+    });
   }
 }
 }
