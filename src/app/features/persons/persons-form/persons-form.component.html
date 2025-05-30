@@ -1,0 +1,24 @@
+<mat-card>
+  <h2>Registrar Persona</h2>
+  <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Clave</mat-label>
+      <input matInput formControlName="personKey" required>
+      <mat-error *ngIf="personForm.get('personKey')?.invalid && personForm.get('personKey')?.touched">
+        Clave obligatoria
+      </mat-error>
+    </mat-form-field>
+    <!-- Repite lo mismo para los demás campos... -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="firstName" required>
+      <mat-error *ngIf="personForm.get('firstName')?.invalid && personForm.get('firstName')?.touched">
+        Nombre obligatorio
+      </mat-error>
+    </mat-form-field>
+    <!-- ...continúa con apellidos, etc. -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="personForm.invalid">
+      Guardar
+    </button>
+  </form>
+</mat-card>
