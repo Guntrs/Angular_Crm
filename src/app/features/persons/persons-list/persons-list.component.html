@@ -6,9 +6,25 @@
       <th>ID</th>
       <th>Clave</th>
       <th>Nombre</th>
+      <th>Segundo Nombre</th>
       <th>Primer Apellido</th>
       <th>Segundo Apellido</th>
-      <!-- Agrega más columnas según tus datos -->
+      <th>Fecha Nacimiento</th>
+
+      <th>Profesión</th>
+      <th>CUI</th>
+      <th>NIT</th>
+      <th>Email</th>
+      <th>Teléfono</th>
+      <th>Teléfono 2</th>
+      <th>Dirección</th>
+      <th>Género</th>
+      <th>Tipo Sangre</th>
+      <th>Estado</th>
+      <th>Creado por</th>
+      <th>Fecha creación</th>
+      <th>Modificado por</th>
+      <th>Fecha modificación</th>
     </tr>
   </thead>
   <tbody>
@@ -16,9 +32,28 @@
       <td>{{ person.personId }}</td>
       <td>{{ person.personKey }}</td>
       <td>{{ person.firstName }}</td>
+      <td>{{ person.secondName }}</td>
       <td>{{ person.firstSurname }}</td>
       <td>{{ person.secondSurname }}</td>
-      <!-- Más campos si tu API los devuelve -->
+      <td>{{ person.birthdate }}</td>
+
+      <td>{{ person.profession }}</td>
+      <td>{{ person.cui }}</td>
+      <td>{{ person.nit }}</td>
+      <td>{{ person.email }}</td>
+      <td>{{ person.phoneNumber }}</td>
+      <td>{{ person.secondaryPhoneNumber }}</td>
+      <td>{{ person.address }}</td>
+
+      <td>{{ person.gender?.description }}</td>
+      <td>{{ person.bloodType?.description }}</td>
+      <td>{{ person.state?.description }}</td>
+
+
+      <td>{{ person.createdBy }}</td>
+      <td>{{ person.creationDate }}</td>
+      <td>{{ person.modifiedBy }}</td>
+      <td>{{ person.modificationDate }}</td>
     </tr>
   </tbody>
 </table>

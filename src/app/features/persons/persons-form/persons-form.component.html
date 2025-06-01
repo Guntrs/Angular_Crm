@@ -1,6 +1,8 @@
 <mat-card>
   <h2>Registrar Persona</h2>
   <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
+
+    <!-- Clave -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Clave</mat-label>
       <input matInput formControlName="personKey" required>
@@ -8,7 +10,8 @@
         Clave obligatoria
       </mat-error>
     </mat-form-field>
-    <!-- Repite lo mismo para los demás campos... -->
+
+    <!-- Nombre -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Nombre</mat-label>
       <input matInput formControlName="firstName" required>
@@ -16,9 +19,118 @@
         Nombre obligatorio
       </mat-error>
     </mat-form-field>
-    <!-- ...continúa con apellidos, etc. -->
+
+    <!-- Segundo Nombre -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Segundo Nombre</mat-label>
+      <input matInput formControlName="secondName">
+    </mat-form-field>
+
+    <!-- Primer Apellido -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Primer Apellido</mat-label>
+      <input matInput formControlName="firstSurname" required>
+      <mat-error *ngIf="personForm.get('firstSurname')?.invalid && personForm.get('firstSurname')?.touched">
+        Primer Apellido obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Segundo Apellido -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Segundo Apellido</mat-label>
+      <input matInput formControlName="secondSurname">
+    </mat-form-field>
+
+    <!-- Fecha Nacimiento -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Fecha Nacimiento</mat-label>
+      <input matInput formControlName="birthdate" type="date">
+    </mat-form-field>
+
+    <!-- Género (ID numérico, cambiar por select si quieres) -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Género</mat-label>
+       <mat-select formControlName="gender" required>
+      <mat-option *ngFor="let g of genderOptions" [value]="g.typologyId">
+      {{ g.description }}
+      </mat-option>
+      </mat-select>
+      <mat-error *ngIf="personForm.get('gender')?.invalid && personForm.get('gender')?.touched">
+       Género obligatorio
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Tipo Sangre (ID numérico, cambiar por select si quieres) -->
+    <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Tipo de Sangre</mat-label>
+    <mat-select formControlName="bloodType" required>
+    <mat-option *ngFor="let bt of bloodTypeOptions" [value]="bt.typologyId">
+      {{ bt.description }}
+    </mat-option>
+    </mat-select>
+    <mat-error *ngIf="personForm.get('bloodType')?.invalid && personForm.get('bloodType')?.touched">
+    Tipo de sangre obligatorio
+    </mat-error>
+  </mat-form-field>
+
+    <!-- Profesión -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Profesión</mat-label>
+      <input matInput formControlName="profession">
+    </mat-form-field>
+
+    <!-- CUI -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>CUI</mat-label>
+      <input matInput formControlName="cui" type="number">
+    </mat-form-field>
+
+    <!-- NIT -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>NIT</mat-label>
+      <input matInput formControlName="nit">
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email">
+    </mat-form-field>
+
+    <!-- Teléfono -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="phoneNumber">
+    </mat-form-field>
+
+    <!-- Teléfono Secundario -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Teléfono 2</mat-label>
+      <input matInput formControlName="secondaryPhoneNumber">
+    </mat-form-field>
+
+    <!-- Dirección -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="address">
+    </mat-form-field>
+
+    <!-- Estado (ID numérico, cambiar por select si quieres) -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="state" required>
+        <mat-option *ngFor="let st of stateOptions" [value]="st.typologyId">
+          {{ st.description }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="personForm.get('state')?.invalid && personForm.get('state')?.touched">
+        Estado obligatorio
+      </mat-error>
+    </mat-form-field>
+
     <button mat-raised-button color="primary" type="submit" [disabled]="personForm.invalid">
       Guardar
     </button>
   </form>
 </mat-card>
+
