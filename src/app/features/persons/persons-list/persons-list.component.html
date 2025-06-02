@@ -10,7 +10,6 @@
       <th>Primer Apellido</th>
       <th>Segundo Apellido</th>
       <th>Fecha Nacimiento</th>
-
       <th>Profesión</th>
       <th>CUI</th>
       <th>NIT</th>
@@ -25,6 +24,7 @@
       <th>Fecha creación</th>
       <th>Modificado por</th>
       <th>Fecha modificación</th>
+      <th>Acciones</th> <!-- NUEVA COLUMNA -->
     </tr>
   </thead>
   <tbody>
@@ -36,7 +36,6 @@
       <td>{{ person.firstSurname }}</td>
       <td>{{ person.secondSurname }}</td>
       <td>{{ person.birthdate }}</td>
-
       <td>{{ person.profession }}</td>
       <td>{{ person.cui }}</td>
       <td>{{ person.nit }}</td>
@@ -44,17 +43,21 @@
       <td>{{ person.phoneNumber }}</td>
       <td>{{ person.secondaryPhoneNumber }}</td>
       <td>{{ person.address }}</td>
-
       <td>{{ person.gender?.description }}</td>
       <td>{{ person.bloodType?.description }}</td>
       <td>{{ person.state?.description }}</td>
-
-
       <td>{{ person.createdBy }}</td>
       <td>{{ person.creationDate }}</td>
       <td>{{ person.modifiedBy }}</td>
       <td>{{ person.modificationDate }}</td>
+      <td>
+        <!-- Botón Editar -->
+        <button mat-button color="primary" [routerLink]="['/persons/edit', person.personId]">
+          Editar
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
 <div *ngIf="!loading && !persons.length">No hay personas.</div>
+

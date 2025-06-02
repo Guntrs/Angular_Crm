@@ -1,5 +1,5 @@
 <mat-card>
-  <h2>Registrar Persona</h2>
+  <h2>{{ editMode ? 'Editar Persona' : 'Registrar Persona' }}</h2>
   <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
 
     <!-- Clave -->

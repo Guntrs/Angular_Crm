@@ -8,6 +8,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 
 import { TypologyService } from '../../typology/typology.services';
+import { PersonsService } from '../persons.service'; // ajusta la ruta si es necesario
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-person-form',
@@ -35,35 +38,56 @@ export class PersonFormComponent  implements OnInit {
   bloodTypeOptions: any[] = [];
   stateOptions: any[] = [];
 
-  constructor(private fb: FormBuilder,
-    private typologyService: TypologyService
+  //editar
+  editMode: boolean = false;
+  personId: number | null = null;
+
+  constructor(
+    private fb: FormBuilder,
+    private typologyService: TypologyService,  //servicio comboBox
+    private personsService: PersonsService, //servicio para crear
+
+    private route: ActivatedRoute,      // editar
+    private router: Router              // editar
   ) {
     this.personForm = this.fb.group({
-  personKey: ['', Validators.required],
-  firstName: ['', Validators.required],
-  secondName: [''],
-  firstSurname: ['', Validators.required],
-  secondSurname: [''],
-  birthdate: [''],
-  gender: ['', Validators.required],
-  bloodType: ['', Validators.required],
-  profession: [''],
-  cui: [''],
-  nit: [''],
-  email: [''],
-  phoneNumber: [''],
-  secondaryPhoneNumber: [''],
-  address: [''],
-  state: ['', Validators.required]
+      personId: [null],
+      personKey: ['', Validators.required],
+      firstName: ['', Validators.required],
+      secondName: [''],
+      firstSurname: ['', Validators.required],
+      secondSurname: [''],
+      birthdate: [''],
+      gender: ['', Validators.required],
+      bloodType: ['', Validators.required],
+      profession: [''],
+      cui: [''],
+      nit: [''],
+      email: [''],
+      phoneNumber: [''],
+      secondaryPhoneNumber: [''],
+      address: [''],
+      state: ['', Validators.required]
     });
   }
 
 
-  //---metodo combobox-----------------------------------
+  //---metodos combobox-----------------------------------
   ngOnInit() {
   this.loadGenderOptions();
   this.loadBloodTypeOptions();
   this.loadStateOptions();
+
+  // --- Detectar si es edición ---
+  this.route.paramMap.subscribe(params => {
+    const id = params.get('id');
+    if (id) {
+      this.editMode = true;
+      this.personId = +id;
+      this.loadPerson(+id);
+    }
+  });
+
   }
 
   //---------
@@ -86,14 +110,63 @@ export class PersonFormComponent  implements OnInit {
       error: () => this.stateOptions = []
     });
   }
+
+  //-----------metodo para cargar los datos-----
+  loadPerson(id: number) {
+    this.personsService.getPersonById(id).subscribe({
+      next: (res) => {
+        const person = res.data ? res.data : res;
+
+        // Transforma los combos para que usen el ID (no el objeto)
+        if (person.gender && typeof person.gender === 'object') {
+          person.gender = person.gender.typologyId;
+        }
+        if (person.bloodType && typeof person.bloodType === 'object') {
+          person.bloodType = person.bloodType.typologyId;
+        }
+        if (person.state && typeof person.state === 'object') {
+          person.state = person.state.typologyId;
+        }
+
+        this.personForm.patchValue(person);
+      },
+      error: () => {
+        alert('Error al cargar datos');
+        this.router.navigate(['/persons']);
+      }
+    });
+  }
   //---------------------------------------------------
 
+
   onSubmit() {
-    if (this.personForm.valid) {
-      // Por ahora, solo mostrar el valor
-      console.log(this.personForm.value);
+  if (this.personForm.valid) {
+    const personData = this.personForm.value;
+
+    if (this.editMode && this.personId) {
+      // --- EDITAR ---
+      this.personsService.updatePerson(this.personId, personData).subscribe({
+        next: () => {
+          alert('Persona actualizada correctamente');
+          this.router.navigate(['/persons']);
+        },
+        error: () => alert('Error al actualizar persona')
+      });
+    } else {
+      // --- CREAR ---
+      this.personsService.createPerson(personData).subscribe({
+        next: () => {
+          alert('Persona creada correctamente');
+          this.personForm.reset();
+          this.router.navigate(['/persons']);
+        },
+        error: () => alert('Error al crear persona')
+      });
     }
   }
+}
+
+
 
 
 }

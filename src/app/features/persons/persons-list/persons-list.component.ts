@@ -2,10 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { PersonsService } from '../persons.service';
 import { NgIf, NgFor } from '@angular/common';
 
+import { RouterModule } from '@angular/router'; // <-- editar
+
 @Component({
   selector: 'app-persons-list',
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [
+    NgIf,
+    NgFor,
+    RouterModule
+   ],
   templateUrl: './persons-list.component.html',
   styleUrls: ['./persons-list.component.css']
 })
