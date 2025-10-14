@@ -1,59 +1,38 @@
-# CrmApp
+# CRM Frontend — Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
+Este proyecto corresponde al **frontend del sistema CRM**, desarrollado en **Angular**, con base en una **plantilla profesional de dashboard** adquirida e integrada al proyecto para agilizar la interfaz de usuario.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🧩 Descripción general
 
-```bash
-ng serve
-```
+El sistema CRM tiene como objetivo gestionar clientes, oportunidades, tipologías y usuarios dentro de una arquitectura moderna.  
+Este frontend se comunica con el backend desarrollado en **.NET 8** (repositorio: [crm-app](https://github.com/Guntrs/crm-app/tree/develop)).
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+El objetivo principal es construir una **interfaz modular, reutilizable y moderna**, enfocada en escalabilidad y mantenibilidad.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🚀 Tecnologías utilizadas
 
-```bash
-ng generate component component-name
-```
+- **Angular CLI** 19.2.6  
+- **TypeScript**  
+- **HTML5 / SCSS**  
+- **Bootstrap / Tailwind (según la plantilla)**  
+- **RxJS**  
+- **API REST** conectada al backend en .NET 8  
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## 🧱 Estructura principal
 
 ```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+src/
+ ├── app/
+ │   ├── modules/         # Módulos del sistema (dashboard, usuarios, clientes, etc.)
+ │   ├── components/      # Componentes reutilizables
+ │   ├── services/        # Servicios de comunicación con API
+ │   ├── guards/          # AuthGuard y control de rutas protegidas
+ │   └── app-routing.module.ts
+ ├── assets/              # Imágenes, estilos y recursos
+ └── environments/        # Variables de entorno
